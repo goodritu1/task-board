@@ -1,7 +1,5 @@
 # 05 Third-Party APIs: Task Board
 
-
-
 GIVEN a task board to manage a project
 
 ## our  Tasks
@@ -20,3 +18,7 @@ THEN the task is removed from the task board and will not be added back after re
 WHEN I refresh the page
 THEN the saved tasks persist
 
+With JavaScript i got the inputs of out form.
+we generated a unique ID for our Task with help of generateTaskId function and saved it to local storage.
+we created task card with help of createTaskCard function
+and when needs to displayed we called it from local storage and diplayed with help of renderTaskList function.
