@@ -32,13 +32,14 @@ function createTaskCard(task) {
     .attr('data-task-id', task.id);
   const cardHeader = $('<div>').addClass('card-header h4').text(task.name);
   const cardBody = $('<div>').addClass('card-body');
-  const cardDescription = $('<p>').addClass('card-text').text(task.description);
+  const cardDescription = $('<p>').addClass('card-text').text(task.type);
   const cardDueDate = $('<p>').addClass('card-text').text(task.dueDate);
   const cardDeleteBtn = $('<button>')
     .addClass('btn btn-danger delete')
     .text('Delete')
     .attr('data-task-id', task.id)
     .on('click', handleDeleteTask);
+    console.log(task)
     if (task.dueDate && task.status !== 'done') {
       const now = dayjs();
       const taskDueDate = dayjs(task.dueDate, 'DD/MM/YYYY');
@@ -115,7 +116,7 @@ function handleAddTask(event) {
     id: generateTaskId(),
     name: taskName,
     type: taskType,
-    date: taskDate,
+    dueDate: taskDate,
     status: "to-do",
 
 
@@ -135,6 +136,8 @@ function handleAddTask(event) {
 
 // Todo: create a function to handle deleting a task
 function handleDeleteTask(event) {
+event.preventDefault();
+  const taskList = JSON.parse(localStorage.getItem("tasks"));
 
   const taskId = $(this).attr('data-task-id');
 
@@ -143,7 +146,7 @@ function handleDeleteTask(event) {
   localStorage.setItem('tasks', JSON.stringify(taskList1));
 
   // Remove the task card from the DOM
-  $(`[data-task-id="${taskId}"]`).remove();
+  // $(`[data-task-id="${taskId}"]`).remove();
 
   renderTaskList();
 
@@ -184,5 +187,5 @@ $(document).ready(function () {
     accept: '.draggable',
     drop: handleDrop,
   });
-
+renderTaskList();
 });
